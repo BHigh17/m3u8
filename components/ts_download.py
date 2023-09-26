@@ -3,7 +3,7 @@ import os
 import requests
 from tqdm import tqdm
 import concurrent.futures
-from threading import Lock, current_thread
+from threading import Lock
 
 MAX_RETRIES = 3  # Number of times to retry downloading a segment
 MAX_THREADS = os.cpu_count() * 3  # Number of threads for parallel downloading
@@ -20,7 +20,7 @@ def download_segment(segment_url, index):
         else:
             with print_lock, console_lock:
                 print(f"\\nFailed to download {segment_url}. Attempt {attempt + 1} of {MAX_RETRIES}...")
-            time.sleep(1)
+            time.sleep(1.5)
     return index, None  # Failed to download after all retries
 
 
